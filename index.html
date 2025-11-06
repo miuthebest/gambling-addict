@@ -15,6 +15,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    transition: background-color 0.2s ease;
   }
   h1 {
     margin-bottom: 10px;
@@ -91,7 +92,66 @@
 <div id="message"></div>
 <button id="restart">try again</button>
 
+<audio id="sound-correct" src="https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg" preload="auto"></audio>
+<audio id="sound-wrong" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" preload="auto"></audio>
+
 <script>
 let score = 0;
 let alive = true;
-const scoreDisplay = do
+const scoreDisplay = document.getElementById('score');
+const message = document.getElementById('message');
+const restartBtn = document.getElementById('restart');
+const buttons = document.querySelectorAll('#buttons button');
+const soundCorrect = document.getElementById('sound-correct');
+const soundWrong = document.getElementById('sound-wrong');
+const body = document.body;
+
+function randomTrueButton() {
+  return Math.floor(Math.random() * 6) + 1;
+}
+
+function flash(color) {
+  body.style.backgroundColor = color;
+  setTimeout(() => {
+    body.style.backgroundColor = '#fefefe';
+  }, 200);
+}
+
+function handleClick(num) {
+  if (!alive) return;
+  const correct = randomTrueButton();
+  if (num === correct) {
+    score++;
+    scoreDisplay.textContent = 'score: ' + score;
+    message.textContent = 'nice! keep going...';
+    flash('#d4fcd4'); // green flash
+    soundCorrect.currentTime = 0;
+    soundCorrect.play();
+  } else {
+    alive = false;
+    flash('#ffd4d4'); // red flash
+    soundWrong.currentTime = 0;
+    soundWrong.play();
+    message.innerHTML = `you made it this far, nice.<br>final score: ${score}<br>wanna try again?`;
+    restartBtn.style.display = 'inline-block';
+  }
+}
+
+buttons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    handleClick(parseInt(btn.dataset.num));
+  });
+});
+
+restartBtn.addEventListener('click', () => {
+  score = 0;
+  alive = true;
+  scoreDisplay.textContent = 'score: 0';
+  message.textContent = '';
+  restartBtn.style.display = 'none';
+  flash('#fefefe');
+});
+</script>
+
+</body>
+</html>
