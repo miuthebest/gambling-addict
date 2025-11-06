@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How far you can go?</title>
+<style>
+  body {
+    background-color: #fefefe;
+    color: #111;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  h1 {
+    margin-bottom: 10px;
+    font-size: 2rem;
+    letter-spacing: 1px;
+  }
+  #score {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+  #buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 10px;
+  }
+  button {
+    width: 80px;
+    height: 80px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border: 3px solid #000;
+    background: transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  button:hover {
+    transform: scale(1.05);
+  }
+  .green { color: #3ddc84; }
+  .red { color: #ff4444; }
+  .yellow { color: #ffcc33; }
+  .purple { color: #b366ff; }
+  .cyan { color: #33ccff; }
+  .pink { color: #ff8ad8; }
+  #message {
+    margin-top: 30px;
+    font-size: 1.1rem;
+  }
+  #restart {
+    margin-top: 15px;
+    padding: 8px 18px;
+    border: none;
+    background-color: #000;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 6px;
+    display: none;
+  }
+  #restart:hover {
+    background-color: #333;
+  }
+</style>
+</head>
+<body>
+
+<h1>how far you can go?</h1>
+<div id="score">score: 0</div>
+<div id="buttons">
+  <button class="green" data-num="1">1</button>
+  <button class="red" data-num="2">2</button>
+  <button class="yellow" data-num="3">3</button>
+  <button class="purple" data-num="4">4</button>
+  <button class="cyan" data-num="5">5</button>
+  <button class="pink" data-num="6">6</button>
+</div>
+
+<div id="message"></div>
+<button id="restart">try again</button>
+
+<script>
+let score = 0;
+let alive = true;
+const scoreDisplay = do
